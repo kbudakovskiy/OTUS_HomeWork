@@ -10,7 +10,7 @@ one the user sends the bot
 import logging
 from transformers import BertTokenizer, BertForSequenceClassification
 import numpy as np
-import re
+import os
 
 from telegram import (
     Update,
@@ -104,7 +104,8 @@ def return_sentence(msg) -> str:
 def main() -> None:
     """Run bot."""
     # Create the Application and pass it your bot's token.
-    application = Application.builder().token("2121440318:AAF-2SuxzIrJzVwjh-SPRhNOjRUieBw2q7w").build()
+    TOKEN = os.environ.get('BOTTOKEN')
+    application = Application.builder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
     # Run the bot until the user presses Ctrl-C
